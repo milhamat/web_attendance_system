@@ -4,6 +4,8 @@ cap = cv2.VideoCapture(0)
 
 faceCascade = cv2.CascadeClassifier("../artifacts/cascade/haarcascade_frontalface_default.xml")
 
+is_detect = False
+
 while(True):
     ret, frame = cap.read()
 
@@ -17,7 +19,7 @@ while(True):
     )
 
     print("Found {0} faces!".format(len(faces)))
-    is_detect = False
+    
     for (x, y, w, h) in faces:
         
         # cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
@@ -26,13 +28,13 @@ while(True):
             
             face_roi = frame[y:y+h+50, x:x+w+50]
             
-            cv2.imshow('Croped Face', face_roi)
+            # cv2.imshow('Croped Face', face_roi)
             
             cv2.imwrite("detected_face.jpg", face_roi)
-            
-        is_detect = True
+            is_detect = True
 
     cv2.imshow('frame', frame)
+    
     if is_detect:
         print(f"width: {w}, height: {h}")
         break
