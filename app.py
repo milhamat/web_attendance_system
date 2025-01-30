@@ -1,6 +1,5 @@
 import streamlit as st
 import cv2
-import numpy as np
 from PIL import Image
 
 # Streamlit UI
@@ -8,6 +7,8 @@ st.title("Webcam Live Stream")
 
 # Start the webcam
 cap = cv2.VideoCapture(0)
+
+faceCascade = cv2.CascadeClassifier("./artifacts/cascade/haarcascade_frontalface_default.xml")
 
 # Streamlit button to capture an image
 capture_button = st.button("Capture Image")
@@ -17,10 +18,23 @@ frame_placeholder = st.empty()
 
 while cap.isOpened():
     ret, frame = cap.read()
+    
     if not ret:
         st.error("Failed to capture image")
         break
+    
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+    faces = faceCascade.detectMultiScale(
+		gray,
+		scaleFactor=1.1, # change to 1.2 if there any error detecting face due image quality 
+		minNeighbors=5,
+		minSize=(30, 30)
+	)
+    
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+    
     # Convert BGR (OpenCV) to RGB (Streamlit)
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     
