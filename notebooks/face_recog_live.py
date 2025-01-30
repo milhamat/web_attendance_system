@@ -28,16 +28,27 @@ while(True):
 	is_detect = False
 	# Draw a rectangle around the faces
 	for (x, y, w, h) in faces:
-		cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+		# cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+	  
+		if w >= 270 and h >= 270:
+			# Extract the face ROI
+			face_roi = frame[y:y+h+100, x:x+w+100]
+
+			# Show the cropped face in a new window
+			cv2.imshow("Cropped Face", face_roi)
+
+			# Save the cropped face image
+			cv2.imwrite("detected_face.jpg", face_roi)
 		is_detect = True
 
 	if is_detect:
+        break
 		print(f"width: {w}, height: {h}")
  
 	# Display the resulting frame
-	cv2.imshow('frame', frame)
-	if cv2.waitKey(1) & 0xFF == ord('q'):
-		break
+	# cv2.imshow('frame', frame)
+	# if cv2.waitKey(1) and 0xFF == ord('q'):
+	# 	break
 
 # When everything done, release the capture
 cap.release()
