@@ -14,15 +14,18 @@ col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
     frame_placeholder = st.empty()
+    frame_placeholder.image("./artifacts/user.jpg", channels="BGR", use_container_width=True)
     
 st.write("")  
 st.write("")
 
 # Streamlit button to capture an image
 capture_button = st.button("Capture Image")
+# start = st.button("Start")
 
 # Webcam feed display
-frame_placeholder = st.empty()
+# frame_placeholder = st.empty()
+# frame_placeholder.image("./artifacts/user.jpg", channels="BGR", use_container_width=True)
 
 while cap.isOpened():
     ret, frame = cap.read()
