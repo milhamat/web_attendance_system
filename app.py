@@ -10,6 +10,14 @@ cap = cv2.VideoCapture(0)
 
 faceCascade = cv2.CascadeClassifier("./artifacts/cascade/haarcascade_frontalface_default.xml")
 
+col1, col2, col3 = st.columns([1, 2, 1])
+
+with col2:
+    frame_placeholder = st.empty()
+    
+st.write("")  
+st.write("")
+
 # Streamlit button to capture an image
 capture_button = st.button("Capture Image")
 
@@ -39,15 +47,18 @@ while cap.isOpened():
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     
     # Display the live frame in Streamlit
-    frame_placeholder.image(frame_rgb, channels="RGB", use_container_width=True)
+    with col2:
+        frame_placeholder.image(frame_rgb, channels="RGB", use_container_width=True)
 
     # Capture the image when the button is clicked
-    if capture_button:
-        image = Image.fromarray(frame_rgb)  # Convert NumPy array to PIL image
-        image.save("captured_image.jpg")  # Save image
-        st.success("Image captured successfully!")
-        st.image(image, caption="Captured Image", use_container_width=True)
-        break  # Exit loop after capturing
-
+    # if capture_button:
+    #     image = Image.fromarray(frame_rgb)  # Convert NumPy array to PIL image
+    #     image.save("captured_image.jpg")  # Save image
+    #     st.success("Image captured successfully!")
+    #     st.image(image, caption="Captured Image", use_container_width=True)
+    #     break  # Exit loop after capturing
+    
 # Release webcam
 cap.release()
+
+
