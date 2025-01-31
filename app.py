@@ -21,10 +21,9 @@ st.write("")
 
 # Streamlit button to capture an image
 start = st.button("Start Camera")
-capture_button = st.button("Capture Image")
+# capture_button = st.button("Capture Image")
 
 if start:
-
     while cap.isOpened():
         ret, frame = cap.read()
         
@@ -40,26 +39,25 @@ if start:
             minNeighbors=5,
             minSize=(30, 30)
         )
-        
-        for (x, y, w, h) in faces:
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-        
         # Convert BGR (OpenCV) to RGB (Streamlit)
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         
         # Display the live frame in Streamlit
         with col2:
             frame_placeholder.image(frame_rgb, channels="RGB", use_container_width=True)
-
-        # Capture the image when the button is clicked
-        # if capture_button:
-        #     image = Image.fromarray(frame_rgb)  # Convert NumPy array to PIL image
-        #     image.save("captured_image.jpg")  # Save image
-        #     st.success("Image captured successfully!")
-        #     st.image(image, caption="Captured Image", use_container_width=True)
-        #     break  # Exit loop after capturing
+            
+        for (x, y, w, h) in faces:
+            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+            # print(f'width: {w}, height: {h}')
+            if w >= 300 and h >= 300:
+                face_roi = frame[y:y+h+50, x:x+w+50]
+                cv2.imwrite("detected_face.jpg", face_roi)
+                break
         
+        
+
 # Release webcam
 cap.release()
 
-
+with col2:
+    frame_placeholder.image("./artifacts/user.jpg", channels="BGR", use_container_width=True)
