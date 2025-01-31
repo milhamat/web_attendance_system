@@ -21,7 +21,7 @@ st.write("")
 
 # Streamlit button to capture an image
 start = st.button("Start Camera")
-# capture_button = st.button("Capture Image")
+capture = False
 
 if start:
     while cap.isOpened():
@@ -39,6 +39,16 @@ if start:
             minNeighbors=5,
             minSize=(30, 30)
         )
+        
+        for (x, y, w, h) in faces:
+            # cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+            print(f'width: {w}, height: {h}')
+            if w >= 300 and h >= 300:
+                face_roi = frame[y:y+h+50, x:x+w+50]
+                cv2.imwrite("detected_face.jpg", face_roi)
+                capture = True
+                
+        
         # Convert BGR (OpenCV) to RGB (Streamlit)
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         
@@ -46,15 +56,8 @@ if start:
         with col2:
             frame_placeholder.image(frame_rgb, channels="RGB", use_container_width=True)
             
-        for (x, y, w, h) in faces:
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-            # print(f'width: {w}, height: {h}')
-            if w >= 300 and h >= 300:
-                face_roi = frame[y:y+h+50, x:x+w+50]
-                cv2.imwrite("detected_face.jpg", face_roi)
-                break
-        
-        
+        if capture:
+            break
 
 # Release webcam
 cap.release()
