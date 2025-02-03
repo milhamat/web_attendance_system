@@ -1,4 +1,5 @@
 import streamlit as st
+from src.pages.face_auth import face_recog
 
 st.set_page_config(initial_sidebar_state="collapsed")
 
@@ -31,5 +32,6 @@ if "logged_in" not in st.session_state:
 if not st.session_state["logged_in"]:
     login()
 else:
-    main_page()
+    face_recog()
+    # main_page()
 
