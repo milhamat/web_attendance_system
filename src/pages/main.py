@@ -1,5 +1,5 @@
 import streamlit as st
-from pages.face_register import Register
+from pages.data_register import Register
 
 reg = Register()
 class LoginPage:
