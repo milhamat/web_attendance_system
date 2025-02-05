@@ -10,7 +10,10 @@ reg = Register()
 capt = FaceCapture()
 
 if "page" not in st.session_state:
-            st.session_state["page"] = "home"
+    st.session_state["page"] = "home"
+            
+if "count" not in st.session_state:
+     st.session_state.count = 0
 
 page = st.session_state["page"]
 if page == "home":
