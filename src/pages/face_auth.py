@@ -7,7 +7,7 @@ class FaceMatch:
     def __init__(self):
         pass
 
-    def face_recog():
+    def face_recog(self):
         # Streamlit UI
         st.title("Web Attendance System")
 
