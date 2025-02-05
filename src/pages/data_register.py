@@ -21,6 +21,6 @@ class Register:
                 st.error("Password does not match") 
             else:
                 st.success("Registration successful!")
-                st.session_state["page"] = "faceMatch"
-                st.session_state["regist"] = True
+                # st.session_state["page"] = "faceMatch"
+                # st.session_state["regist"] = True
         

@@ -1,7 +1,7 @@
 import streamlit as st
 from src.pages.main import LoginPage
 from src.pages.face_auth import FaceMatch
-from pages.data_register import Register
+from src.pages.data_register import Register
 
 start = LoginPage()
 face = FaceMatch()
