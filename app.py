@@ -18,12 +18,6 @@ def login():
         else:
             st.error("Invalid username or password")
 
-def main_page():
-    st.title("Welcome to the App")
-    st.write("You are now logged in!")
-    if st.button("Logout"):
-        st.session_state["logged_in"] = False
-
 # Initialize session state
 if "logged_in" not in st.session_state:
     st.session_state["logged_in"] = False
@@ -33,5 +27,4 @@ if not st.session_state["logged_in"]:
     login()
 else:
     face_recog()
-    # main_page()
 
