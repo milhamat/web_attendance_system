@@ -1,8 +1,12 @@
 import streamlit as st
 
-class Register:
+class Register():
     def __init__(self):
         pass
+    
+    def set_page(self, page_name):
+        """Updates session state to navigate instantly."""
+        st.session_state["page"] = page_name
     
     
     def data_register(self):
@@ -21,6 +25,5 @@ class Register:
                 st.error("Password does not match") 
             else:
                 st.success("Registration successful!")
-                # st.session_state["page"] = "faceMatch"
-                # st.session_state["regist"] = True
+                st.button("Next", on_click=self.set_page, args=("faceCapture",))
         

@@ -2,10 +2,12 @@ import streamlit as st
 from src.pages.main import LoginPage
 from src.pages.face_auth import FaceMatch
 from src.pages.data_register import Register
+from src.pages.face_capt import FaceCapture
 
 start = LoginPage()
 face = FaceMatch()
 reg = Register()
+capt = FaceCapture()
 
 if "page" not in st.session_state:
             st.session_state["page"] = "home"
@@ -17,6 +19,8 @@ elif page == "register":
     reg.data_register()
 elif page == "faceMatch":
     face.face_recog()
+elif page == "faceCapture":
+    capt.capture()
     
 
 # Initialize session state
