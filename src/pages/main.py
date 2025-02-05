@@ -1,7 +1,7 @@
 import streamlit as st
-from face_auth import FaceMatch
+# from src.pages.face_auth import FaceMatch
 
-face = FaceMatch()
+# face = FaceMatch()
 
 class LoginPage:
     def __init__(self):
@@ -22,13 +22,3 @@ class LoginPage:
                 st.success("Login successful!")
             else:
                 st.error("Invalid username or password")
-
-    # Initialize session state
-    if "logged_in" not in st.session_state:
-        st.session_state["logged_in"] = False
-
-    # Check login status
-    if not st.session_state["logged_in"]:
-        login()
-    else:
-        face.face_recog()
