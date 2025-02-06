@@ -17,8 +17,6 @@ class FaceCapture(Session):
             frame_placeholder = st.empty()
             frame_placeholder.image("./artifacts/user.jpg", channels="BGR", use_container_width=True)
             
-        
-            
         st.write("Please capture your face 5 times")
         # st.write(f"Capture count: {st.session_state.count}")
         col4, col5, col6 = st.columns([2, 2, 6])

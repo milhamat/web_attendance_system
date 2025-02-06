@@ -14,7 +14,6 @@ class Register(Session):
         with col1:
             submitButton = st.button("Submit")
         
-        
         if submitButton:
             if not username.strip():
                 st.error("Username cannot be empty")
