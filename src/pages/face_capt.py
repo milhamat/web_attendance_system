@@ -1,10 +1,6 @@
 import streamlit as st
 
 class FaceCapture:
-    
-    def __init__(self):
-        pass
-    
     def increment_counter(self):
         st.session_state.count += 1
     

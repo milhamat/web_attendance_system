@@ -1,16 +1,9 @@
-import streamlit as st
 import cv2
-# from PIL import Image
+import streamlit as st
+from src.utils.session import Session
 
-class FaceMatch:
+class FaceMatch(Session):
     
-    def __init__(self):
-        pass
-    
-    def set_page(self, page_name):
-        """Updates session state to navigate instantly."""
-        st.session_state["page"] = page_name
-
     def face_recog(self):
         # Streamlit UI
         st.title("Web Attendance System")

@@ -1,13 +1,7 @@
 import streamlit as st
+from src.utils.session import Session
 
-class Register():
-    def __init__(self):
-        pass
-    
-    def set_page(self, page_name):
-        """Updates session state to navigate instantly."""
-        st.session_state["page"] = page_name
-    
+class Register(Session):
     
     def data_register(self):
         # if st.session_state["regist"]:
