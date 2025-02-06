@@ -10,7 +10,12 @@ class Register(Session):
         password = st.text_input("Password", type="password")
         repassword = st.text_input("Re-type Password", type="password")
         
-        if st.button("Submit"):
+        col1, col2, col3 = st.columns([1, 1, 6])
+        with col1:
+            submitButton = st.button("Submit")
+        
+        
+        if submitButton:
             if not username.strip():
                 st.error("Username cannot be empty")
             elif not password.strip():
@@ -19,5 +24,6 @@ class Register(Session):
                 st.error("Password does not match") 
             else:
                 st.success("Registration successful!")
-                st.button("Next", on_click=self.set_page, args=("faceCapture",))
+                with col2:
+                    st.button("Next", on_click=self.set_page, args=("faceCapture",))
         

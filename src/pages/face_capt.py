@@ -17,11 +17,16 @@ class FaceCapture(Session):
             frame_placeholder = st.empty()
             frame_placeholder.image("./artifacts/user.jpg", channels="BGR", use_container_width=True)
             
+        
+            
         st.write("Please capture your face 5 times")
         # st.write(f"Capture count: {st.session_state.count}")
+        col4, col5, col6 = st.columns([2, 2, 6])
         print(st.session_state.count)
-        st.button("Take a Picture", on_click=self.increment_counter)
+        with col4:
+            st.button("Take a Picture", on_click=self.increment_counter)
         
         if st.session_state.count == 5:
-            st.button("Next", on_click=self.set_page, args=("home",))
-        st.session_state.count = 0
+            with col5:
+                st.button("Next", on_click=self.set_page, args=("home",))
+                st.session_state.count = 0
