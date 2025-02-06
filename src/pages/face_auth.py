@@ -3,6 +3,12 @@ import streamlit as st
 from src.utils.session import Session 
 
 class FaceMatch(Session):
+    def __init__(self):
+        if "start_auth" not in st.session_state:
+            st.session_state["start_auth"] = False
+    
+    def start_clicked(self):
+        st.session_state.start_auth = True
     
     def face_recog(self):
         # Streamlit UI
@@ -23,11 +29,13 @@ class FaceMatch(Session):
         st.write("")
 
         # Streamlit button to capture an image
-        start = st.button("Authenticate")
-        st.button("Dashboard", on_click=self.set_page, args=("dashboard",))
+        col4, col5, col6 = st.columns([2, 2, 6])
+        start = st.empty()
+        with col4:
+            start.button("Authenticate", on_click=self.start_clicked)
         capture = False
 
-        if start:
+        if st.session_state.start_auth:
             while cap.isOpened():
                 ret, frame = cap.read()
                 
@@ -69,3 +77,8 @@ class FaceMatch(Session):
 
         with col2:
             frame_placeholder.image("./artifacts/user.jpg", channels="BGR", use_container_width=True)
+        
+        if capture:
+            with col4:
+                st.button("Dashboard", on_click=self.set_page, args=("dashboard",))
+                start.empty()
