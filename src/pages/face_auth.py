@@ -1,4 +1,5 @@
 import cv2
+import time
 import streamlit as st
 from src.utils.session import Session 
 
@@ -37,6 +38,7 @@ class FaceMatch(Session):
 
         if st.session_state.start_auth:
             while cap.isOpened():
+                # time.sleep(2)
                 ret, frame = cap.read()
                 
                 if not ret:
@@ -81,4 +83,5 @@ class FaceMatch(Session):
         if capture:
             with col4:
                 st.button("Dashboard", on_click=self.set_page, args=("dashboard",))
+                st.session_state.start_auth = False
                 start.empty()
