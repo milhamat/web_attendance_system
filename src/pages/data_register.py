@@ -1,5 +1,5 @@
 import streamlit as st
-from src.utils.session import Session
+from src.utils.session import Session 
 
 class Register(Session):
     

@@ -1,5 +1,5 @@
 import streamlit as st
-from src.utils.session import Session
+from src.utils.session import Session 
 from src.pages.face_auth import FaceMatch
 from src.pages.face_capt import FaceCapture
 from src.pages.data_register import Register
@@ -30,9 +30,6 @@ class LoginPage(Session):
         capt = FaceCapture()
         dash = UserDashboard()
                     
-        if "count" not in st.session_state:
-            st.session_state.count = 0
-
         page = st.session_state["page"]
         if page == "home":
             self.login()

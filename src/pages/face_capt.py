@@ -1,6 +1,10 @@
 import streamlit as st
 
 class FaceCapture:
+    def __init__(self):
+        if "count" not in st.session_state:
+            st.session_state["count"] = 0
+    
     def increment_counter(self):
         st.session_state.count += 1
     
@@ -13,5 +17,9 @@ class FaceCapture:
             frame_placeholder.image("./artifacts/user.jpg", channels="BGR", use_container_width=True)
             
         st.write("Please capture your face")
-        st.write(f"Capture count: {st.session_state.count}")
+        # st.write(f"Capture count: {st.session_state.count}")
+        print(st.session_state.count)
         st.button("Take a Picture", on_click=self.increment_counter)
+        
+        if st.session_state.count == 5:
+            st.button("Next", on_click=self.set_page, args=("home",))

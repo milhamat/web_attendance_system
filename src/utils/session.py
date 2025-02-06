@@ -1,4 +1,3 @@
-# utils/session.py
 import streamlit as st
 
 class Session:
@@ -8,6 +7,7 @@ class Session:
         # Initialize session state if not already set
         if "page" not in st.session_state:
             st.session_state["page"] = "home"
+            
 
     def set_page(self, page_name):
         """Updates session state to navigate instantly."""

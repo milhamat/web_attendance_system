@@ -1,6 +1,6 @@
 import cv2
 import streamlit as st
-from src.utils.session import Session
+from src.utils.session import Session 
 
 class FaceMatch(Session):
     
