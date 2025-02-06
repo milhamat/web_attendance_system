@@ -1,6 +1,7 @@
 import streamlit as st
+from src.utils.session import Session 
 
-class FaceCapture:
+class FaceCapture(Session):
     def __init__(self):
         if "count" not in st.session_state:
             st.session_state["count"] = 0
