@@ -13,15 +13,21 @@ class LoginPage(Session):
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
         
+        col1, col2, col3 = st.columns([1, 1, 6])
+        
         # Login button
-        if st.button("Login"):
+        with col1:
+            loginButton = st.button("Login")
+        
+        with col2:
+            st.button("Sign In", on_click=self.set_page, args=("register",))
+            
+        if loginButton:
             if username == "admin" and password == "password":
                 st.session_state["page"] = "faceMatch"
                 st.success("Login successful!")
             else:
                 st.error("Invalid username or password")
-        
-        st.button("Sign In", on_click=self.set_page, args=("register",))
         
     def run(self):
         """Runs the app based on the active page."""
