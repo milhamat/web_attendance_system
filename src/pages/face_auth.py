@@ -2,6 +2,7 @@ import cv2
 import time
 import streamlit as st
 from src.utils.session import Session 
+from src.model.extract_image import Extract
 
 class FaceMatch(Session):
     def __init__(self):
@@ -61,7 +62,8 @@ class FaceMatch(Session):
                     if w >= 300 and h >= 300:
                         face_roi = frame[y:y+h+50, x:x+w+50]
                         self.store_face = face_roi
-                        cv2.imwrite("detected_face.jpg", face_roi)
+                        Extract().extract([face_roi], isList=False)
+                        # cv2.imwrite("detected_face.jpg", face_roi)
                         capture = True
                         
                 
