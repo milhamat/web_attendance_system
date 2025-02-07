@@ -1,7 +1,7 @@
 import streamlit as st
 from src.utils.session import Session 
 from src.pages.face_auth import FaceMatch
-from src.pages.face_capt import FaceCapture
+from src.pages.face_upload import FaceUpload
 from src.pages.data_register import Register
 from src.pages.dashboard import UserDashboard
     
@@ -33,7 +33,7 @@ class LoginPage(Session):
         """Runs the app based on the active page."""
         face = FaceMatch()
         reg = Register()
-        capt = FaceCapture()
+        capt = FaceUpload()
         dash = UserDashboard()
                     
         page = st.session_state["page"]
@@ -44,6 +44,6 @@ class LoginPage(Session):
         elif page == "faceMatch":
             face.face_recog()
         elif page == "faceCapture":
-            capt.capture()
+            capt.upload_foto()
         elif page == "dashboard":
             dash.dashboard()
