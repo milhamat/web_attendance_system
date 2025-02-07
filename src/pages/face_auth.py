@@ -60,7 +60,6 @@ class FaceMatch(Session):
                     print(f'width: {w}, height: {h}')
                     if w >= 300 and h >= 300:
                         face_roi = frame[y:y+h+50, x:x+w+50]
-                        # print(type(face_roi))
                         self.store_face = face_roi
                         cv2.imwrite("detected_face.jpg", face_roi)
                         capture = True

@@ -9,8 +9,14 @@ class Extract:
         self.mtcnn = MTCNN()
         self.extracted_faces = []
 
-    def extract(self, images):
-        for img in range(len(images)):
-            im = Image.fromarray(images[img])
+    def extract(self, images, isList=True):
+        if isList:
+            for img in range(len(images)):
+                im = Image.fromarray(images[img])
+                self.extracted_faces.append(self.mtcnn(im))
+        else:
+            im = Image.fromarray(images)
             self.extracted_faces.append(self.mtcnn(im))
+        print(len(self.extracted_facesq))
+        return self.extracted_faces
     
