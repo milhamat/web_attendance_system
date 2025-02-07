@@ -1,90 +1,76 @@
 import cv2
-import time
 import streamlit as st
 from src.utils.session import Session 
 from src.model.extract_image import Extract
 
 class FaceMatch(Session):
     def __init__(self):
-        self.store_face = 0
         if "start_auth" not in st.session_state:
             st.session_state["start_auth"] = False
+            
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            self.frame_placeholder = st.empty()  # Store placeholder in class
     
-    def start_clicked(self):
+    def capture(self):
         st.session_state.start_auth = True
-    
-    def face_recog(self):
-        # Streamlit UI
-        st.title("Web Attendance System")
+        
+    def update_frame(self, frame):
+        """Update the Streamlit image dynamically."""
+        st.title("Face Authentication")
+        self.frame_placeholder.image(frame, channels="RGB", use_container_width=True)
 
-        # Start the webcam
+    # Function to capture video and update the placeholder
+    def capture_video(self):
         cap = cv2.VideoCapture(0)
-
         faceCascade = cv2.CascadeClassifier("./artifacts/cascade/haarcascade_frontalface_default.xml")
 
-        col1, col2, col3 = st.columns([1, 2, 1])
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if not ret:
+                st.error("Failed to capture video")
+                break
 
-        with col2:
-            frame_placeholder = st.empty()
-            frame_placeholder.image("./artifacts/user.jpg", channels="BGR", use_container_width=True)
-            
-        st.write("")  
-        st.write("")
+            # Convert frame to grayscale for face detection
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            faces = faceCascade.detectMultiScale(
+                gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30)
+            )
 
-        # Streamlit button to capture an image
-        col4, col5, col6 = st.columns([2, 2, 6])
-        start = st.empty()
-        with col4:
-            start.button("Authenticate", on_click=self.start_clicked)
-        capture = False
+            for (x, y, w, h) in faces:
+                cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-        if st.session_state.start_auth:
-            while cap.isOpened():
-                # time.sleep(2)
-                ret, frame = cap.read()
-                
-                if not ret:
-                    st.error("Failed to capture image")
-                    break
-                
-                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-                faces = faceCascade.detectMultiScale(
-                    gray,
-                    scaleFactor=1.1, # change to 1.2 if there any error detecting face due image quality 
-                    minNeighbors=5,
-                    minSize=(30, 30)
-                )
-                
-                for (x, y, w, h) in faces:
-                    cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-                    print(f'width: {w}, height: {h}')
-                    if w >= 300 and h >= 300:
-                        face_roi = frame[y:y+h+50, x:x+w+50]
-                        self.store_face = face_roi
-                        Extract().extract([face_roi], isList=False)
-                        # cv2.imwrite("detected_face.jpg", face_roi)
-                        capture = True
-                        
-                
-                # Convert BGR (OpenCV) to RGB (Streamlit)
-                frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                
-                # Display the live frame in Streamlit
-                with col2:
-                    frame_placeholder.image(frame_rgb, channels="RGB", use_container_width=True)
+                if w >= 300 and h >= 300:
+                    face_roi = frame[y:y+h+50, x:x+w+50]
+                    Extract().extract(face_roi, isList=False)
+                    self.capture()
+                    print("Face detected")
                     
-                if capture:
-                    break
+            # Convert BGR (OpenCV) to RGB (Streamlit)
+            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        # Release webcam
+            # Update the Streamlit image in the UI class
+            self.update_frame(frame_rgb)
+
+            # Stop streaming when "Stop Capture" is pressed
+            if st.session_state.start_auth:
+                break
+
         cap.release()
-
-        with col2:
-            frame_placeholder.image("./artifacts/user.jpg", channels="BGR", use_container_width=True)
         
-        if capture:
+    def run(self):
+        self.update_frame("./artifacts/user.jpg")
+        
+        col4, col5, col6 = st.columns([2, 2, 6])
+        button_placeholder = st.empty()
+        with col4:
+            if button_placeholder.button("Start Video Capture"):
+                self.capture_video()
+                
+        if st.session_state.start_auth:
+            self.update_frame("./artifacts/user.jpg")
+            st.session_state.start_auth = False
             with col4:
+                button_placeholder.empty()
                 st.button("Dashboard", on_click=self.set_page, args=("dashboard",))
-                st.session_state.start_auth = False
-                start.empty()
+                

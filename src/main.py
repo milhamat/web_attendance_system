@@ -42,7 +42,7 @@ class LoginPage(Session):
         elif page == "register":
             reg.data_register()
         elif page == "faceMatch":
-            face.face_recog()
+            face.run()
         elif page == "faceCapture":
             capt.upload_foto()
         elif page == "dashboard":
