@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 from PIL import Image
+from src.model.extract_image import Extract
 from src.utils.session import Session 
 
 class FaceUpload(Session):
@@ -23,6 +24,7 @@ class FaceUpload(Session):
 
         # Convert and store images as numpy arrays
         if uploaded_files:
+            # st.session_state.uploaded_faces = uploaded_files[:5]
             st.session_state.uploaded_faces = [
                 np.array(Image.open(img_file)) for img_file in uploaded_files[:5]
             ]
@@ -43,7 +45,8 @@ class FaceUpload(Session):
             submitButton = st.button("Submit", disabled=submit_disabled)
         
         if submitButton:
-            print(st.session_state.uploaded_faces[3].shape)
+            Extract().extract(st.session_state.uploaded_faces)
+            # print(type(st.session_state.uploaded_faces[0]))
         
         if len(uploaded_files) == 5:
             with col2:
