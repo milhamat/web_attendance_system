@@ -43,7 +43,7 @@ class LoginPage(Session):
             reg.data_register()
         elif page == "faceMatch":
             face.run()
-        elif page == "faceCapture":
+        elif page == "faceUpload":
             capt.upload_foto()
         elif page == "dashboard":
             dash.dashboard()

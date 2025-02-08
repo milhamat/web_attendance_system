@@ -33,5 +33,5 @@ class Register(Session):
             else:
                 st.success("Registration successful!")
                 with col2:
-                    st.button("Next", on_click=self.set_page, args=("faceCapture",))
+                    st.button("Next", on_click=self.set_page, args=("faceUpload",))
                     print(f"username: {username}, fullname: {fullname}, password: {password}, repassword: {repassword}, role: {role}, id: {id}")
