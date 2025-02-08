@@ -58,9 +58,9 @@ class FaceMatch(Session):
         cap.release()
         
     def run(self):
-        st.title("Face Authentication")
+        # st.title("Face Authentication")
         # self.update_frame("./artifacts/user.jpg")
-        
+        self.frame_placeholder.image("./artifacts/user.jpg", channels="RGB", use_container_width=True)
         col4, col5, col6 = st.columns([2, 2, 6])
         button_placeholder = st.empty()
         with col4:
@@ -70,6 +70,7 @@ class FaceMatch(Session):
         if st.session_state.start_auth:
             # self.update_frame("./artifacts/user.jpg")
             st.session_state.start_auth = False
+            self.frame_placeholder.image("./artifacts/user.jpg", channels="RGB", use_container_width=True)
             with col4:
                 button_placeholder.empty()
                 st.button("Dashboard", on_click=self.set_page, args=("dashboard",))
