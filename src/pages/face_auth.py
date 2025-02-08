@@ -17,7 +17,6 @@ class FaceMatch(Session):
         
     def update_frame(self, frame):
         """Update the Streamlit image dynamically."""
-        st.title("Face Authentication")
         self.frame_placeholder.image(frame, channels="RGB", use_container_width=True)
 
     # Function to capture video and update the placeholder
@@ -59,16 +58,17 @@ class FaceMatch(Session):
         cap.release()
         
     def run(self):
-        self.update_frame("./artifacts/user.jpg")
+        st.title("Face Authentication")
+        # self.update_frame("./artifacts/user.jpg")
         
         col4, col5, col6 = st.columns([2, 2, 6])
         button_placeholder = st.empty()
         with col4:
-            if button_placeholder.button("Start Video Capture"):
+            if button_placeholder.button("Start Capture"):
                 self.capture_video()
                 
         if st.session_state.start_auth:
-            self.update_frame("./artifacts/user.jpg")
+            # self.update_frame("./artifacts/user.jpg")
             st.session_state.start_auth = False
             with col4:
                 button_placeholder.empty()
