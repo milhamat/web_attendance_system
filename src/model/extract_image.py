@@ -1,7 +1,4 @@
-import streamlit as st
-import numpy as np
 from PIL import Image
-from matplotlib import cm
 from facenet_pytorch import MTCNN
 
 class Extract:
