@@ -24,12 +24,30 @@ class Attendance(UserData):
         cur.close()
         conn.close()
         
-    def insert_attendance(self, user_id, status):
+    def check_in(self, user_id, status):
         """Inserts a new user into the database."""
         conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
         cur = conn.cursor()
         
         cur.execute("INSERT INTO attendance (user_id, status) VALUES (%s, %s) RETURNING id", (user_id, status))
+        # user_id, created_time = cur.fetchone()
+        
+        conn.commit()
+        # print(f"User {username} inserted with ID {user_id} at {created_time}")
+        
+        cur.close()
+        conn.close()
+        
+    def check_out(self, user_id):
+        """Inserts a new user into the database."""
+        conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
+        cur = conn.cursor()
+        
+        cur.execute(f"""
+                    UPDATE attendance
+                    SET check_out = NOW()
+                    WHERE user_id = {user_id}
+        """)
         # user_id, created_time = cur.fetchone()
         
         conn.commit()
