@@ -29,7 +29,7 @@ class Attendance(UserData):
         conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
         cur = conn.cursor()
         
-        cur.execute("INSERT INTO attendance (user_id, status) VALUES (%s, %s) RETURNING id, created_at", (user_id, status))
+        cur.execute("INSERT INTO attendance (user_id, status) VALUES (%s, %s) RETURNING id", (user_id, status))
         # user_id, created_time = cur.fetchone()
         
         conn.commit()
