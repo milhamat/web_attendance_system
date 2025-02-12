@@ -1,8 +1,7 @@
 import streamlit as st
-# from src.utils.session import Session 
+from src.utils.session import Session 
 
-# class UserDashboard(Session):
-class UserDashboard():
+class UserDashboard(Session):
     def dashboard(self):
         st.title("User Dashboard")
         st.header("Welcome to the User Dashboard")
@@ -24,8 +23,8 @@ class UserDashboard():
             st.header("Total Hours Worked")
         
         
-        # st.button("Logout", on_click=self.set_page, args=("home",))
+        st.button("Logout", on_click=self.set_page, args=("home",))
         st.button("Logout")
         
 
-UserDashboard().dashboard()
+# UserDashboard().dashboard()
