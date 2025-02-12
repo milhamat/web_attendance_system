@@ -39,8 +39,7 @@ class UserData:
                 password VARCHAR(255) NOT NULL,
                 role VARCHAR(20) NOT NULL CHECK (role IN ('student', 'employee', 'admin')),
                 department_id INT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
         
@@ -58,7 +57,7 @@ class UserData:
         user_id, created_time = cur.fetchone()
         
         conn.commit()
-        print(f"User {username} inserted with ID {user_id} at {created_time}")
+        # print(f"User {username} inserted with ID {user_id} at {created_time}")
         
         cur.close()
         conn.close()
@@ -71,9 +70,10 @@ class UserData:
         cur.execute("SELECT * FROM users")
         users = cur.fetchall()
         
-        for user in users:
-            print(user)  # (id, username, password, time)
+        # for user in users:
+        #     print(user)  # (id, username, password, time)
         
         cur.close()
         conn.close()
+        return users
         
