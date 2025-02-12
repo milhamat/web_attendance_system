@@ -6,7 +6,7 @@ class Extract:
         self.mtcnn = MTCNN()
         self.extracted_faces = []
 
-    def extract(self, images, isList=True):
+    def get_face(self, images, isList=True):
         if isList:
             for img in range(len(images)):
                 im = Image.fromarray(images[img])

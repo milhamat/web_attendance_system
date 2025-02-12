@@ -45,7 +45,7 @@ class FaceUpload(Session):
             submitButton = st.button("Submit", disabled=submit_disabled)
         
         if submitButton:
-            Extract().extract(st.session_state.uploaded_faces)
+            Extract().get_face(st.session_state.uploaded_faces)
             # print(type(st.session_state.uploaded_faces[0]))
         
         if len(uploaded_files) == 5:

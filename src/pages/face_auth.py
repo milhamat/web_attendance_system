@@ -41,7 +41,7 @@ class FaceMatch(Session):
 
                 if w >= 300 and h >= 300:
                     face_roi = frame[y:y+h+50, x:x+w+50]
-                    Extract().extract(face_roi, isList=False)
+                    Extract().get_face(face_roi, isList=False)
                     self.capture()
                     print("Face detected")
                     
