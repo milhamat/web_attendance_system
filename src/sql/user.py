@@ -54,7 +54,7 @@ class UserData:
         cur = conn.cursor()
         
         cur.execute("INSERT INTO users (username, full_name, password, role, department_id) VALUES (%s, %s, %s, %s, %s) RETURNING id, created_at", (username, full_name, password, role, department_id))
-        user_id, created_time = cur.fetchone()
+        # user_id, created_time = cur.fetchone()
         
         conn.commit()
         # print(f"User {username} inserted with ID {user_id} at {created_time}")
