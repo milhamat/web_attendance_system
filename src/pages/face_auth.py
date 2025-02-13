@@ -48,7 +48,7 @@ class FaceMatch(Session):
                     # Extract().get_face(face_roi, isList=False)
                     self.extract_image(face_roi)
                     self.capture()
-                    st.status("Face detected")
+                    st.success("Face detected")
                 else:
                     cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
           
