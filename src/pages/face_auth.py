@@ -18,6 +18,12 @@ class FaceMatch(Session):
     def update_frame(self, frame):
         """Update the Streamlit image dynamically."""
         self.frame_placeholder.image(frame, channels="RGB", use_container_width=True)
+        
+    def extract_image(self, frame):
+        face = Extract().get_face(frame, isList=False)
+        extracted = Extract().extract(face, isList=False)
+        # TAKE SIMILARITY RESULTS
+        print(extracted.shape)
 
     # Function to capture video and update the placeholder
     def capture_video(self):
@@ -37,14 +43,15 @@ class FaceMatch(Session):
             )
 
             for (x, y, w, h) in faces:
-                cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
                 if w >= 300 and h >= 300:
                     face_roi = frame[y:y+h+50, x:x+w+50]
-                    Extract().get_face(face_roi, isList=False)
+                    # Extract().get_face(face_roi, isList=False)
+                    self.extract_image(face_roi)
                     self.capture()
-                    print("Face detected")
-                    
+                    st.status("Face detected")
+                else:
+                    cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+          
             # Convert BGR (OpenCV) to RGB (Streamlit)
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -58,9 +65,9 @@ class FaceMatch(Session):
         cap.release()
         
     def run(self):
-        # st.title("Face Authentication")
-        # self.update_frame("./artifacts/user.jpg")
         self.frame_placeholder.image("./artifacts/user.jpg", channels="RGB", use_container_width=True)
+        
+        status = st.selectbox("Status", ["Check-in", "Check-out"])
         col4, col5, col6 = st.columns([2, 2, 6])
         button_placeholder = st.empty()
         with col4:
@@ -68,7 +75,6 @@ class FaceMatch(Session):
                 self.capture_video()
                 
         if st.session_state.start_auth:
-            # self.update_frame("./artifacts/user.jpg")
             st.session_state.start_auth = False
             self.frame_placeholder.image("./artifacts/user.jpg", channels="RGB", use_container_width=True)
             with col4:

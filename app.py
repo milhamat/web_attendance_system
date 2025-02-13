@@ -1,7 +1,7 @@
-# from src.main import LoginPage
+from src.main import LoginPage
 
-# start = LoginPage()
-# start.run()
+start = LoginPage()
+start.run()
 
 # from src.sql.user import UserData
 

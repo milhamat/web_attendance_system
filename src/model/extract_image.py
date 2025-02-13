@@ -5,30 +5,31 @@ from facenet_pytorch import MTCNN, InceptionResnetV1
 class Extract:
     def __init__(self):
         self.mtcnn = MTCNN()
-        self.extracted_faces = []
-        self.embed_faces = []
 
     def get_face(self, images, isList=True):
         if isList:
+            extracted_faces = []
             for img in range(len(images)):
                 im = Image.fromarray(images[img])
-                self.extracted_faces.append(self.mtcnn(im).unsqueeze(0))
+                extracted_faces.append(self.mtcnn(im).unsqueeze(0))
         else:
             im = Image.fromarray(images)
-            self.extracted_faces.append(self.mtcnn(im).unsqueeze(0))
-        
-        return self.extracted_faces
+            extracted_faces = self.mtcnn(im).unsqueeze(0)
+        # print(self.extracted_faces)
+        return extracted_faces
     
-    def extract(self, isList=True):
+    def extract(self, extracted_faces, isList=True):
         resnet = InceptionResnetV1(pretrained='casia-webface').eval()
         if isList:
-            for face in self.extracted_faces:
+            embed_faces = []
+            for face in extracted_faces:
                 embeding = resnet(face).detach()
                 embeddings1 = F.normalize(embeding, p=2, dim=1)
-                self.embed_faces.append(embeddings1)
+                embed_faces.append(embeddings1)
         else:
-            embeding = resnet(self.extracted_faces[0]).detach()
+            embeding = resnet(extracted_faces).detach()
             embeddings1 = F.normalize(embeding, p=2, dim=1)
-            self.embed_faces.append(embeddings1) 
+            embed_faces = embeddings1
+        return embed_faces
         
     
