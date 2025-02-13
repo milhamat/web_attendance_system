@@ -29,7 +29,7 @@ class LoginPage(Session):
             else:
                 st.error("Invalid username or password")
         
-    def run(self):
+    def run_login(self):
         """Runs the app based on the active page."""
         face = FaceMatch()
         reg = Register()

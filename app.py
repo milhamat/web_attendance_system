@@ -1,7 +1,7 @@
 from src.main import LoginPage
 
 start = LoginPage()
-start.run()
+start.run_login()
 
 # from src.sql.user import UserData
 

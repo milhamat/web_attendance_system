@@ -8,7 +8,7 @@ class Attendance(UserData):
         cur = conn.cursor()
         
         cur.execute("""
-            CREATE TABLE attendance (
+            CREATE TABLE IF NOT EXISTS attendance (
                 id SERIAL PRIMARY KEY,
                 user_id INT NOT NULL,
                 check_in TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

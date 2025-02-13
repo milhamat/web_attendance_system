@@ -1,5 +1,8 @@
 import streamlit as st
 from src.utils.session import Session 
+from src.sql.user import UserData
+
+userDat = UserData()
 
 class Register(Session):
     
@@ -31,6 +34,7 @@ class Register(Session):
             elif not id.strip():
                 st.error("ID Number cannot be empty")
             else:
+                userDat.insert_user(username, fullname, password, role, id)
                 st.success("Registration successful!")
                 with col2:
                     st.button("Next", on_click=self.set_page, args=("faceUpload",))

@@ -21,7 +21,7 @@ class FaceUpload(Session):
             type=["jpg", "jpeg", "png"], 
             accept_multiple_files=True
         )
-
+        id = st.text_input("ID Number")
         # Convert and store images as numpy arrays
         if uploaded_files:
             # st.session_state.uploaded_faces = uploaded_files[:5]
