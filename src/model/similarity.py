@@ -17,9 +17,9 @@ class SimilarityFace:
         # Set a threshold for verification
         threshold = 0.4  # Adjust based on your dataset
         if similarity < threshold:
-            self.status = 'Same person'
+            self.status = 'similar'
         else:
-            self.status = 'Different persons'
+            self.status = 'disimilar'
         return self.status    
     
 # Query vector image 

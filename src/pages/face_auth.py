@@ -18,7 +18,7 @@ class FaceMatch(Session):
         with col2:
             self.frame_placeholder = st.empty()  # Store placeholder in class
     
-    def capture(self):
+    def pass_check(self):
         st.session_state.start_auth = True
         
     def update_frame(self, frame):
@@ -35,8 +35,11 @@ class FaceMatch(Session):
         query_image = similar.embed_convert(query_image)
         extracted = np.array(extracted)
         result = similar.count_similarity(query_image, extracted)
-        print(result)
-        # print(type(extracted))
+        if result == "similar":
+            self.pass_check()
+        else:
+            st.error("Differeant person please take another picture")
+            
 
     # Function to capture video and update the placeholder
     def capture_video(self):
@@ -58,9 +61,7 @@ class FaceMatch(Session):
             for (x, y, w, h) in faces:
                 if w >= 300 and h >= 300:
                     face_roi = frame[y:y+h+50, x:x+w+50]
-                    # Extract().get_face(face_roi, isList=False)
                     self.extract_image(face_roi)
-                    self.capture()
                     st.success("Face detected")
                 else:
                     cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
