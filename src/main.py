@@ -43,12 +43,6 @@ class LoginPage(Session):
                 st.error("username and password could be not availabel or worng")
                 print("User not found!")
         
-        # if st.session_state["next_auth"]:
-        #     st.session_state["next_auth"] = False
-        #     with col1:
-        #         loginButton.empty()
-        #         loginButton.button("Next", on_click=self.set_page, args=("faceMatch",))
-        
     def run_login(self):
         """Runs the app based on the active page."""
         face = FaceMatch()

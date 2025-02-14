@@ -71,9 +71,6 @@ class UserData:
         cur.execute("SELECT * FROM users")
         users = cur.fetchall()
         
-        for user in users:
-            print(user)  # (id, username, password, time)
-        
         cur.close()
         conn.close()
         return users
