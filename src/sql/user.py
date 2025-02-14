@@ -80,20 +80,16 @@ class UserData:
     
     def fetch_user_pass(self, username, password):
         """Fetches all users from the database."""
-        conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
-        cur = conn.cursor()
-        
-        cur.execute("SELECT * FROM users WHERE username = %s AND password = %s;", (username, password))
-        # query = "SELECT * FROM users WHERE username = %s AND password = %s;"
-        # cur.execute(query, (username, password))
-        user = cur.fetchall()
-        
-        # if user:
-        #     print("User found:", user)
-        # else:
-        #     print("User not found!")
-        
-        cur.close()
-        conn.close()
+        try:
+            conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
+            cur = conn.cursor()
+            
+            cur.execute("SELECT * FROM users WHERE username = %s AND password = %s;", (username, password))
+            user = cur.fetchall()
+            
+            cur.close()
+            conn.close()
+        except Exception as e:
+            print("Error: ", e)
         return user
         

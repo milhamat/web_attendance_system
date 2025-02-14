@@ -7,6 +7,13 @@ from src.pages.data_register import Register
 from src.pages.dashboard import UserDashboard
     
 class LoginPage(Session):
+    def __init__(self):
+        if "user_id" not in st.session_state:
+            st.session_state["user_id"] = 0
+            
+        if "next_auth" not in st.session_state:
+            st.session_state["next_auth"] = False
+    
     def login(self):
         userDat = UserData()
         st.title("Login Page")
@@ -28,12 +35,19 @@ class LoginPage(Session):
             userq = userDat.fetch_user_pass(username, password)
             if userq:
                 st.success(f"Hello, {username}" )
-                print(userq[0][0])
+                st.session_state["page"] = "faceMatch"
+                st.session_state["user_id"] = userq[0][0]
+                st.session_state["next_auth"] = True
                 print("User found:", username)
             else:
                 st.error("username and password could be not availabel or worng")
                 print("User not found!")
-           
+        
+        # if st.session_state["next_auth"]:
+        #     st.session_state["next_auth"] = False
+        #     with col1:
+        #         loginButton.empty()
+        #         loginButton.button("Next", on_click=self.set_page, args=("faceMatch",))
         
     def run_login(self):
         """Runs the app based on the active page."""
