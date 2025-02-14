@@ -13,7 +13,7 @@ class Register(Session):
         fullname = st.text_input("Full Name")
         password = st.text_input("Password", type="password")
         repassword = st.text_input("Re-type Password", type="password")
-        role = st.selectbox("Role", ["Student", "Employee", "Lecturer"])
+        role = st.selectbox("Role", ["student", "employee", "admin"])
         id = st.text_input("ID Number")
         
         col1, col2, col3 = st.columns([1, 1, 6])
@@ -34,6 +34,7 @@ class Register(Session):
             elif not id.strip():
                 st.error("ID Number cannot be empty")
             else:
+                userDat.create_table()
                 userDat.insert_user(username, fullname, password, role, id)
                 st.success("Registration successful!")
                 with col2:

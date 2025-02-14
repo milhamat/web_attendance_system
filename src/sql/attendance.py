@@ -15,7 +15,7 @@ class Attendance(UserData):
                 check_out TIMESTAMP,
                 status VARCHAR(10) CHECK (status IN ('Present', 'Absent', 'Late', 'On Leave')),
                 remarks TEXT,
-                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+                FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
             );
         """)
         

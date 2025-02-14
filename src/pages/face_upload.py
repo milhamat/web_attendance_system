@@ -2,7 +2,10 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 from src.model.extract_image import Extract
+from src.sql.image import ImageEmbedd
 from src.utils.session import Session 
+
+img_embd = ImageEmbedd()
 
 class FaceUpload(Session):
     def __init__(self):
@@ -45,7 +48,20 @@ class FaceUpload(Session):
             submitButton = st.button("Submit", disabled=submit_disabled)
         
         if submitButton:
-            Extract().get_face(st.session_state.uploaded_faces)
+            if not id.strip():
+                st.error("ID Number cannot be empty")
+            faces = Extract().get_face(st.session_state.uploaded_faces)
+            extracts = Extract().extract(faces)
+            print(type(extracts))
+            print(extracts[0])
+            print(len(extracts))
+            
+            for face in extracts:
+                img_embd.image_store(id, face)
+            
+            # img_embd.create_table()
+            # THE EMBEDDING NEED TO BE SAVE ONE BY ONE
+            # img_embd.image_store(id, extracts)
             # print(type(st.session_state.uploaded_faces[0]))
         
         if len(uploaded_files) == 5:

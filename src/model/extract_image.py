@@ -1,3 +1,4 @@
+import torch
 from PIL import Image
 import torch.nn.functional as F
 from facenet_pytorch import MTCNN, InceptionResnetV1
@@ -23,13 +24,25 @@ class Extract:
         if isList:
             embed_faces = []
             for face in extracted_faces:
-                embeding = resnet(face).detach()
-                embeddings1 = F.normalize(embeding, p=2, dim=1)
-                embed_faces.append(embeddings1)
+                # embeding = resnet(face).detach()
+                # embeddings1 = F.normalize(embeding, p=2, dim=1)
+                
+                with torch.no_grad():
+                    embeding = resnet(face)
+                embeddings1 = embeding.squeeze().numpy()
+                
+                embed_faces.append(embeddings1.tolist())
+                
         else:
-            embeding = resnet(extracted_faces).detach()
-            embeddings1 = F.normalize(embeding, p=2, dim=1)
-            embed_faces = embeddings1
+            # embeding = resnet(extracted_faces).detach()
+            # embeddings1 = F.normalize(embeding, p=2, dim=1)
+            
+            with torch.no_grad():
+                    embeding = resnet(extracted_faces)
+            embeddings1 = embeding.squeeze().numpy()
+            
+            embed_faces = embeddings1.tolist()
+            
         return embed_faces
         
     

@@ -7,6 +7,7 @@ class UserData:
         self.DB_PASSWORD = "1234"
         self.DB_HOST = "localhost"
         self.DB_PORT = 5432
+        self.create_database()
         
     def create_database(self):
         """Creates the database if it doesn't exist."""
@@ -38,7 +39,7 @@ class UserData:
                 full_name VARCHAR(100) NOT NULL,
                 password VARCHAR(255) NOT NULL,
                 role VARCHAR(20) NOT NULL CHECK (role IN ('student', 'employee', 'admin')),
-                department_id INT,
+                user_id INT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
