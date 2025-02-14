@@ -3,6 +3,15 @@ from src.main import LoginPage
 start = LoginPage()
 start.run_login()
 
+# MAKE LOGIN AUTH
+# from src.sql.user import UserData
+
+# userDat = UserData()
+
+ 
+
+## TEST THE SIMILARITY FUNCTION!!! ADD MORE ONE PERSON
+
 # from src.pages.face_upload import FaceUpload
 
 # FaceUpload().upload_foto()

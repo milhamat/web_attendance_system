@@ -45,7 +45,7 @@ class UserData:
             )
         """)
         conn.commit()
-        print("Table 'users' is ready.")
+        # print("Table 'users' is ready.")
         cur.close()
         conn.close()
         
@@ -63,7 +63,7 @@ class UserData:
         cur.close()
         conn.close()
         
-    def fetch_users(self):
+    def fetch_all(self):
         """Fetches all users from the database."""
         conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
         cur = conn.cursor()
@@ -71,10 +71,29 @@ class UserData:
         cur.execute("SELECT * FROM users")
         users = cur.fetchall()
         
-        # for user in users:
-        #     print(user)  # (id, username, password, time)
+        for user in users:
+            print(user)  # (id, username, password, time)
         
         cur.close()
         conn.close()
         return users
+    
+    def fetch_user_pass(self, username, password):
+        """Fetches all users from the database."""
+        conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
+        cur = conn.cursor()
+        
+        cur.execute("SELECT * FROM users WHERE username = %s AND password = %s;", (username, password))
+        # query = "SELECT * FROM users WHERE username = %s AND password = %s;"
+        # cur.execute(query, (username, password))
+        user = cur.fetchall()
+        
+        # if user:
+        #     print("User found:", user)
+        # else:
+        #     print("User not found!")
+        
+        cur.close()
+        conn.close()
+        return user
         

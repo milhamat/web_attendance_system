@@ -1,5 +1,6 @@
 import streamlit as st
 from src.utils.session import Session 
+from src.sql.user import UserData
 from src.pages.face_auth import FaceMatch
 from src.pages.face_upload import FaceUpload
 from src.pages.data_register import Register
@@ -7,6 +8,7 @@ from src.pages.dashboard import UserDashboard
     
 class LoginPage(Session):
     def login(self):
+        userDat = UserData()
         st.title("Login Page")
         
         # Input fields
@@ -23,11 +25,15 @@ class LoginPage(Session):
             st.button("Sign In", on_click=self.set_page, args=("register",))
             
         if loginButton:
-            if username == "admin" and password == "password":
-                st.session_state["page"] = "faceMatch"
-                st.success("Login successful!")
+            userq = userDat.fetch_user_pass(username, password)
+            if userq:
+                st.success(f"Hello, {username}" )
+                print(userq[0][0])
+                print("User found:", username)
             else:
-                st.error("Invalid username or password")
+                st.error("username and password could be not availabel or worng")
+                print("User not found!")
+           
         
     def run_login(self):
         """Runs the app based on the active page."""
