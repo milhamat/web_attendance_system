@@ -1,7 +1,7 @@
-# from src.main import LoginPage
+from src.main import LoginPage
 
-# start = LoginPage()
-# start.run_login()
+start = LoginPage()
+start.run_login()
 
 # import numpy as np
 # from src.sql.image import ImageEmbedd
@@ -36,8 +36,8 @@
 # # UNSIMILAR
 # print(cosine_distance(adam1, brad1))
 
-from src.pages.face_auth import FaceMatch
+# from src.pages.face_auth import FaceMatch
 
-face = FaceMatch()
-face.run()
+# face = FaceMatch()
+# face.run()
 

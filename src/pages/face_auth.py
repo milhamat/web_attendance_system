@@ -3,11 +3,13 @@ import numpy as np
 import streamlit as st
 from src.utils.session import Session 
 from src.sql.image import ImageEmbedd
+from src.sql.attendance import Attendance
 from src.model.extract_image import Extract
 from src.model.similarity import SimilarityFace
 
 img_embed = ImageEmbedd()
 similar = SimilarityFace()
+attd = Attendance() 
 
 class FaceMatch(Session):
     def __init__(self):
@@ -29,8 +31,8 @@ class FaceMatch(Session):
         face = Extract().get_face(frame, isList=False)
         extracted = Extract().extract(face, isList=False)
         # TAKE SIMILARITY RESULTS
-        # query_image = img_embed.image_fetch(st.session_state["user_id"])
-        query_image = img_embed.image_fetch(1)
+        query_image = img_embed.image_fetch(st.session_state["user_id"])
+        # query_image = img_embed.image_fetch(1)
         query_image = query_image[0][1]
         query_image = similar.embed_convert(query_image)
         extracted = np.array(extracted)
@@ -38,7 +40,8 @@ class FaceMatch(Session):
         if result == "similar":
             self.pass_check()
         else:
-            st.error("Differeant person please take another picture")
+            print("Diferent Person")
+            # st.error("Differeant person please take another picture")
             
 
     # Function to capture video and update the placeholder
@@ -62,7 +65,7 @@ class FaceMatch(Session):
                 if w >= 300 and h >= 300:
                     face_roi = frame[y:y+h+50, x:x+w+50]
                     self.extract_image(face_roi)
-                    st.success("Face detected")
+                    # st.success("Face detected")
                 else:
                     cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
           
@@ -91,6 +94,11 @@ class FaceMatch(Session):
         if st.session_state.start_auth:
             st.session_state.start_auth = False
             self.frame_placeholder.image("./artifacts/user.jpg", channels="RGB", use_container_width=True)
+            attd.create_table_attd()
+            if status == "Check-in":
+                attd.check_in(st.session_state["user_id"])
+            else:
+                attd.check_out(st.session_state["user_id"])
             with col4:
                 button_placeholder.empty()
                 st.button("Dashboard", on_click=self.set_page, args=("dashboard",))
