@@ -3,9 +3,9 @@ from src.sql.user import UserData
 
 class Attendance(UserData):
     def __init__(self):
-        self.create_table()
+        self.create_table_attd()
     
-    def create_table(self): 
+    def create_table_attd(self): 
         """Creates a user table."""
         conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
         cur = conn.cursor()

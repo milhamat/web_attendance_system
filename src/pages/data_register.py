@@ -34,7 +34,7 @@ class Register(Session):
             elif not id.strip():
                 st.error("ID Number cannot be empty")
             else:
-                userDat.create_table()
+                userDat.create_table_user()
                 userDat.insert_user(username, fullname, password, role, id)
                 st.success("Registration successful!")
                 with col2:

@@ -7,10 +7,10 @@ class UserData:
         self.DB_PASSWORD = "1234"
         self.DB_HOST = "localhost"
         self.DB_PORT = 5432
-        self.create_database()
-        self.create_table()
+        self.create_database_user()
+        self.create_table_user()
         
-    def create_database(self):
+    def create_database_user(self):
         """Creates the database if it doesn't exist."""
         conn = psycopg2.connect(dbname="postgres", user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
         conn.autocommit = True
@@ -28,7 +28,7 @@ class UserData:
         cur.close()
         conn.close()
         
-    def create_table(self): 
+    def create_table_user(self): 
         """Creates a user table."""
         conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
         cur = conn.cursor()

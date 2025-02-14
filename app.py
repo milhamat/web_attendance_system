@@ -1,11 +1,11 @@
-# from src.main import LoginPage
+from src.main import LoginPage
 
-# start = LoginPage()
-# start.run_login()
+start = LoginPage()
+start.run_login()
 
-from src.pages.face_upload import FaceUpload
+# from src.pages.face_upload import FaceUpload
 
-FaceUpload().upload_foto()
+# FaceUpload().upload_foto()
 
 # from src.sql.user import UserData
 

@@ -55,12 +55,11 @@ class FaceUpload(Session):
             print(type(extracts))
             print(extracts[0])
             print(len(extracts))
-            
+            # THE EMBEDDING NEED TO BE SAVE ONE BY ONE
             for face in extracts:
                 img_embd.image_store(id, face)
             
             # img_embd.create_table()
-            # THE EMBEDDING NEED TO BE SAVE ONE BY ONE
             # img_embd.image_store(id, extracts)
             # print(type(st.session_state.uploaded_faces[0]))
         
