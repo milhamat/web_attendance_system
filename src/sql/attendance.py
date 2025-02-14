@@ -2,8 +2,6 @@ import psycopg2
 from src.sql.user import UserData
 
 class Attendance(UserData):
-    def __init__(self):
-        self.create_table_attd()
     
     def create_table_attd(self): 
         """Creates a user table."""
@@ -18,7 +16,7 @@ class Attendance(UserData):
                 check_out TIMESTAMP,
                 status VARCHAR(10) CHECK (status IN ('Present', 'Absent', 'Late', 'On Leave')),
                 remarks TEXT,
-                FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
             );
         """)
         

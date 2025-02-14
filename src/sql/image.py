@@ -3,9 +3,6 @@ import numpy as np
 from src.sql.user import UserData
 
 class ImageEmbedd(UserData):
-    def __init__(self):
-        self.create_table_image()
-    
     def create_table_image(self):
         """Creates the image_embeddings table if it doesn't exist."""
         conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
@@ -16,7 +13,7 @@ class ImageEmbedd(UserData):
                 id SERIAL PRIMARY KEY,
                 user_id INT NOT NULL,
                 embedding VECTOR(512), --2048
-                FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
             );
         """)
         conn.commit()

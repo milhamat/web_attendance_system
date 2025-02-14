@@ -40,11 +40,10 @@ class UserData:
                 full_name VARCHAR(100) NOT NULL,
                 password VARCHAR(255) NOT NULL,
                 role VARCHAR(20) NOT NULL CHECK (role IN ('student', 'employee', 'admin')),
-                user_id INT,
+                deaprtmen_id INT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        
         conn.commit()
         print("Table 'users' is ready.")
         cur.close()
@@ -55,7 +54,7 @@ class UserData:
         conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
         cur = conn.cursor()
         
-        cur.execute("INSERT INTO users (username, full_name, password, role, department_id) VALUES (%s, %s, %s, %s, %s) RETURNING id, created_at", (username, full_name, password, role, department_id))
+        cur.execute("INSERT INTO users (username, full_name, password, role, deaprtmen_id) VALUES (%s, %s, %s, %s, %s) RETURNING id, created_at", (username, full_name, password, role, department_id))
         # user_id, created_time = cur.fetchone()
         
         conn.commit()
