@@ -8,6 +8,7 @@ class UserData:
         self.DB_HOST = "localhost"
         self.DB_PORT = 5432
         self.create_database()
+        self.create_table()
         
     def create_database(self):
         """Creates the database if it doesn't exist."""
