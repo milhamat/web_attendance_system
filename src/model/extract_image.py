@@ -24,9 +24,6 @@ class Extract:
         if isList:
             embed_faces = []
             for face in extracted_faces:
-                # embeding = resnet(face).detach()
-                # embeddings1 = F.normalize(embeding, p=2, dim=1)
-                
                 with torch.no_grad():
                     embeding = resnet(face)
                 embeddings1 = embeding.squeeze().numpy()
@@ -34,9 +31,6 @@ class Extract:
                 embed_faces.append(embeddings1.tolist())
                 
         else:
-            # embeding = resnet(extracted_faces).detach()
-            # embeddings1 = F.normalize(embeding, p=2, dim=1)
-            
             with torch.no_grad():
                     embeding = resnet(extracted_faces)
             embeddings1 = embeding.squeeze().numpy()

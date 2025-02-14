@@ -33,7 +33,6 @@ brad1 = np.array(brad1, dtype=np.float32)
 
 # SIMILAR
 print(cosine_distance(adam1, adam2))
-
 # UNSIMILAR
 print(cosine_distance(adam1, brad1))
 
