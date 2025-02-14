@@ -16,7 +16,7 @@ class Extract:
         else:
             im = Image.fromarray(images)
             extracted_faces = self.mtcnn(im).unsqueeze(0)
-        # print(self.extracted_faces)
+        
         return extracted_faces
     
     def extract(self, extracted_faces, isList=True):

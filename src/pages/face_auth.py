@@ -1,7 +1,13 @@
 import cv2
+import numpy as np
 import streamlit as st
 from src.utils.session import Session 
+from src.sql.image import ImageEmbedd
 from src.model.extract_image import Extract
+from src.model.similarity import SimilarityFace
+
+img_embed = ImageEmbedd()
+similar = SimilarityFace()
 
 class FaceMatch(Session):
     def __init__(self):
@@ -23,7 +29,14 @@ class FaceMatch(Session):
         face = Extract().get_face(frame, isList=False)
         extracted = Extract().extract(face, isList=False)
         # TAKE SIMILARITY RESULTS
-        print(extracted.shape)
+        # query_image = img_embed.image_fetch(st.session_state["user_id"])
+        query_image = img_embed.image_fetch(1)
+        query_image = query_image[0][1]
+        query_image = similar.embed_convert(query_image)
+        extracted = np.array(extracted)
+        result = similar.count_similarity(query_image, extracted)
+        print(result)
+        # print(type(extracted))
 
     # Function to capture video and update the placeholder
     def capture_video(self):
