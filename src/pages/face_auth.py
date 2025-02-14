@@ -96,7 +96,7 @@ class FaceMatch(Session):
             self.frame_placeholder.image("./artifacts/user.jpg", channels="RGB", use_container_width=True)
             attd.create_table_attd()
             if status == "Check-in":
-                attd.check_in(st.session_state["user_id"])
+                attd.check_in(user_id=st.session_state["user_id"], status="Present")
             else:
                 attd.check_out(st.session_state["user_id"])
             with col4:
