@@ -1,13 +1,13 @@
-# from src.main import LoginPage
+from src.main import LoginPage
 
-# start = LoginPage()
-# start.run_login()
+start = LoginPage()
+start.run_login()
 
 ## MAKE DASHBOARD UI
-from src.pages.dashboard import UserDashboard
+# from src.pages.dashboard import UserDashboard
 
-dash = UserDashboard()
-dash.dashboard()
+# dash = UserDashboard()
+# dash.dashboard()
 
 # import psycopg2
 
