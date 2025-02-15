@@ -8,14 +8,14 @@ class SimilarityFace:
         conv = list(map(float, vector_embed.strip("[]").split(",")))
         return np.array(conv, dtype=np.float32) 
     
-    def count_similarity(self, query_vector: np.ndarray, current_vector: np.ndarray) -> float:
+    def count_similarity(self, query_vector: np.ndarray, current_vector: np.ndarray, thres:float) -> float:
         dot_product = np.dot(query_vector, current_vector)
         norm_product = np.linalg.norm(query_vector) * np.linalg.norm(current_vector)
         
         similarity = 1 - (dot_product / norm_product)
 
         # Set a threshold for verification
-        threshold = 0.4  # Adjust based on your dataset
+        threshold = thres # 0.4
         if similarity < threshold:
             self.status = 'similar'
         else:

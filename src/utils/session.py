@@ -8,7 +8,6 @@ class Session:
         if "page" not in st.session_state:
             st.session_state["page"] = "home"
             
-
     def set_page(self, page_name):
         """Updates session state to navigate instantly."""
         st.session_state["page"] = page_name

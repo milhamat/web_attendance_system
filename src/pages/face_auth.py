@@ -36,7 +36,7 @@ class FaceMatch(Session):
         query_image = query_image[0][1]
         query_image = similar.embed_convert(query_image)
         extracted = np.array(extracted)
-        result = similar.count_similarity(query_image, extracted)
+        result = similar.count_similarity(query_image, extracted, 0.4)
         if result == "similar":
             self.pass_check()
         else:

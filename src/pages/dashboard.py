@@ -5,7 +5,8 @@ from src.sql.attendance import Attendance
 attd = Attendance()
 class UserDashboard(Session):
     def dashboard(self):
-        time_query = attd.fetch_attendance(st.session_state["user_id"])
+        id = st.session_state["user_id"]
+        time_query = attd.fetch_attendance(f"{str(id)}")
         
         try:
             dt = time_query[-1][0]
