@@ -36,6 +36,4 @@ async def upload_image(image1: UploadFile = File(...), image2: UploadFile = File
     except Exception as e:
         return {"error": str(e)}
     
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="An error occurred while processing the images.")
 
