@@ -1,43 +1,47 @@
-from src.main import LoginPage
+# from src.main import LoginPage
 
-start = LoginPage()
-start.run_login()
+# start = LoginPage()
+# start.run_login()
 
-# import numpy as np
-# from src.sql.image import ImageEmbedd
-# ## TEST THE SIMILARITY FUNCTION!!! ADD MORE ONE PERSON
-# img_embed = ImageEmbedd()
+## MAKE DASHBOARD UI
+from src.pages.dashboard import UserDashboard
 
-# def cosine_distance(vec1: np.ndarray, vec2: np.ndarray) -> float:
-#     """Compute the cosine distance between two vectors."""    
-#     dot_product = np.dot(vec1, vec2)
-#     norm_product = np.linalg.norm(vec1) * np.linalg.norm(vec2)
-#     return 1 - (dot_product / norm_product)
+dash = UserDashboard()
+dash.dashboard()
 
-# adam = img_embed.image_fetch(1)
-# brad = img_embed.image_fetch(2)
-# # ADAM
-# adam1 = adam[0][1] 
-# adam1 = list(map(float, adam1.strip("[]").split(",")))
-# adam1 = np.array(adam1, dtype=np.float32) 
+# import psycopg2
 
-# adam2 = adam[1][1] 
-# adam2 = list(map(float, adam2.strip("[]").split(",")))
-# adam2 = np.array(adam2, dtype=np.float32) 
+# DB_NAME = "user_database"
+# DB_USER = "postgres"
+# DB_PASSWORD = "1234"
+# DB_HOST = "localhost"
+# DB_PORT = 5432
 
-# # BRAD
-# brad1 = brad[0][1] 
-# brad1 = list(map(float, brad1.strip("[]").split(",")))
-# brad1 = np.array(brad1, dtype=np.float32) 
- 
+# conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT)
+# cur = conn.cursor()
+            
+# # cur.execute("SELECT check_in, check_out FROM attendance WHERE user_id = %s;", ('1'))
+# cur.execute("SELECT * FROM attendance")
+# time_query = cur.fetchall()
+            
+# cur.close()
+# conn.close()
 
-# # SIMILAR
-# print(cosine_distance(adam1, adam2))
-# # UNSIMILAR
-# print(cosine_distance(adam1, brad1))
+# print(time_query[-1][0])
+# try:
+#     dt = time_query[-1][3]
+# except Exception as e:
+#     print("Error", e)
 
-# from src.pages.face_auth import FaceMatch
+# dt = time_query[-1][3]
+# if dt is None:
+#     print("---")
+    
+# # Extract date and time
+# current_date = dt.date()  # Gets YYYY-MM-DD
+# exact_time = dt.time()  # Gets HH:MM:SS.ssssss
 
-# face = FaceMatch()
-# face.run()
-
+# # Print results
+# print("Current Date:", current_date)
+# print("Exact Time:", exact_time)
+# print(type(time_query[-1][2]))

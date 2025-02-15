@@ -18,7 +18,7 @@ class Register(Session):
         
         col1, col2, col3 = st.columns([1, 1, 6])
         with col1:
-            submitButton = st.button("Submit")
+            submitButton = st.button("Submit", key="button_reg_submit")
         
         if submitButton:
             if not username.strip():
@@ -38,5 +38,5 @@ class Register(Session):
                 userDat.insert_user(username, fullname, password, role, id)
                 st.success("Registration successful!")
                 with col2:
-                    st.button("Next", on_click=self.set_page, args=("faceUpload",))
+                    st.button("Next", on_click=self.set_page, args=("faceUpload",), key='button_reg_next')
                     print(f"username: {username}, fullname: {fullname}, password: {password}, repassword: {repassword}, role: {role}, id: {id}")

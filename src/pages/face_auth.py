@@ -88,7 +88,7 @@ class FaceMatch(Session):
         col4, col5, col6 = st.columns([2, 2, 6])
         button_placeholder = st.empty()
         with col4:
-            if button_placeholder.button("Start Capture"):
+            if button_placeholder.button("Start Capture", key='button_start_capture'):
                 self.capture_video()
                 
         if st.session_state.start_auth:
@@ -101,5 +101,5 @@ class FaceMatch(Session):
                 attd.check_out(st.session_state["user_id"])
             with col4:
                 button_placeholder.empty()
-                st.button("Dashboard", on_click=self.set_page, args=("dashboard",))
+                st.button("Dashboard", on_click=self.set_page, args=("dashboard",), key='button_next_to_dashboard')
                 

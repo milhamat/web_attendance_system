@@ -57,12 +57,13 @@ class Attendance(UserData):
         cur.close()
         conn.close()
         
-    def fetch_attendance(self):
+    def fetch_attendance(self, user_id):
         """Fetches all users from the database."""
         conn = psycopg2.connect(dbname=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT)
         cur = conn.cursor()
         
-        cur.execute("SELECT * FROM attendance")
+        # cur.execute("SELECT * FROM attendance")
+        cur.execute("SELECT check_in, check_out FROM attendance WHERE user_id = %s;", (user_id))
         attd = cur.fetchall()
         
         cur.close()

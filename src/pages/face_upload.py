@@ -45,7 +45,7 @@ class FaceUpload(Session):
         
         col1, col2, col3 = st.columns([1, 1, 6])
         with col1:
-            submitButton = st.button("Submit", disabled=submit_disabled)
+            submitButton = st.button("Submit", disabled=submit_disabled, key='button_submit_face_upload')
         
         if submitButton:
             if not id.strip():
@@ -66,7 +66,7 @@ class FaceUpload(Session):
         
         if len(uploaded_files) == 5:
             with col2:
-                st.button("Next", on_click=self.set_page, args=("home",))
+                st.button("Next", on_click=self.set_page, args=("home",), key="button_next_to_login")
 
         # Show warning if user uploads more than 5
         if len(uploaded_files) > 5:
