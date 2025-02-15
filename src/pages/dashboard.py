@@ -13,11 +13,18 @@ class UserDashboard(Session):
         except Exception as e:
             print("Error", e)
             
-        # Extract date and time
         current_date = dt.date()
         exact_time = dt.time()
+        
+        dt_clock_out = time_query[-1][1]
+        if dt_clock_out is None:
+            dt_clock_out = "---"
+        else:
+            dt_clock_out = dt_clock_out.time()
             
         st.title("User Dashboard")
+        
+        # print(st.session_state["user_query"])
         
         basic_data = st.container(border=True)
         basic_data.write("**Name**         : Jhon")
@@ -31,7 +38,7 @@ class UserDashboard(Session):
         
         st.subheader("Clock Out")
         clock_out_border = st.container(border=True)
-        clock_out_border.write(f"**---**")
+        clock_out_border.write(f"**{dt_clock_out}**")
         
         
         

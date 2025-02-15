@@ -33,6 +33,9 @@ class LoginPage(Session):
             
         if loginButton:
             userq = userDat.fetch_user_pass(username, password)
+            if "user_query" not in st.session_state:
+                st.session_state["user_query"] = userq
+            
             if userq:
                 st.success(f"Hello, {username}" )
                 st.session_state["page"] = "faceMatch"
